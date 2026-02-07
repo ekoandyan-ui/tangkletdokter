@@ -132,7 +132,8 @@
   min-height: 100vh;
   width: 100%;
   max-width: 100%;
-  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+  background-image:
+    linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
     url(images/banner.jpg);
   background-position: center;
   background-size: cover;
@@ -548,7 +549,8 @@ h3 {
 .cta {
   margin: 100px auto;
   width: 80%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url(images/tim_lanjutan.jpg);
   background-position: center;
   background-size: cover;
@@ -571,7 +573,8 @@ h3 {
 body.page-informasi .sub-header {
   height: 70vh;
   width: 100%;
-  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+  background-image:
+    linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
     url(images/informasi_rs.jpeg);
   background-position: center;
   background-size: cover;
@@ -612,7 +615,8 @@ body.page-informasi .about-col p {
 body.page-speling .sub-header {
   height: 70vh;
   width: 100%;
-  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+  background-image:
+    linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
     url(images/speling.png);
   background-position: center;
   background-size: cover;
@@ -653,7 +657,8 @@ body.page-speling .about-col p {
 body.page-chat .sub-header {
   height: 90vh;
   width: 100%;
-  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+  background-image:
+    linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
     url(images/live_chat.jpg);
   background-position: center;
   background-size: cover;

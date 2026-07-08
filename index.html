@@ -78,45 +78,125 @@
         <p>Konsultasikan masalah kesehatan Anda dengan Dokter yang handal dan terpercaya. Dapatkan layanan medis secara cepat, tepat dan mudah.</p>
 
         <div class="row">
+            <!-- RS 1 -->
             <div class="rumahsakit-col">
-                <img src="images/rsud_suka.jpg" alt="RSUD Sunan Kalijaga">
-                <div class="layer">
-                    <h3>RSUD Sunan Kalijaga</h3>
+                <div class="rs-img-wrap">
+                    <img src="images/rsud_suka.jpg" alt="RSUD Sunan Kalijaga">
+                    <div class="layer">
+                        <h3>RSUD Sunan Kalijaga</h3>
+                    </div>
                 </div>
+                <button class="btn-detail-rs" onclick="openDetailRS('RSUD Sunan Kalijaga','0812-1234-5001','0812-9000-5001')">Detail</button>
             </div>
+            <!-- RS 2 -->
             <div class="rumahsakit-col">
-                <img src="images/rsud_sulfat.jpeg" alt="RSUD Sultan Fatah">
-                <div class="layer">
-                    <h3>RSUD Sultan Fatah</h3>
+                <div class="rs-img-wrap">
+                    <img src="images/rsud_sulfat.jpeg" alt="RSUD Sultan Fatah">
+                    <div class="layer">
+                        <h3>RSUD Sultan Fatah</h3>
+                    </div>
                 </div>
+                <button class="btn-detail-rs" onclick="openDetailRS('RSUD Sultan Fatah','0812-1234-5002','0812-9000-5002')">Detail</button>
             </div>
+            <!-- RS 3 -->
             <div class="rumahsakit-col">
-                <img src="images/rsi_nu.jpeg" alt="RSI Nahdlatul Ulama Demak">
-                <div class="layer">
-                    <h3>RSI Nahdlatul Ulama Demak</h3>
+                <div class="rs-img-wrap">
+                    <img src="images/rsi_nu.jpeg" alt="RSI Nahdlatul Ulama Demak">
+                    <div class="layer">
+                        <h3>RSI Nahdlatul Ulama Demak</h3>
+                    </div>
                 </div>
+                <button class="btn-detail-rs" onclick="openDetailRS('RSI Nahdlatul Ulama Demak','0812-1234-5003','0812-9000-5003')">Detail</button>
             </div>
+            <!-- RS 4 -->
             <div class="rumahsakit-col">
-                <img src="images/rs_pelita.jpg" alt="RS Pelita Anugerah">
-                <div class="layer">
-                    <h3>RS Pelita Anugerah</h3>
+                <div class="rs-img-wrap">
+                    <img src="images/rs_pelita.jpg" alt="RS Pelita Anugerah">
+                    <div class="layer">
+                        <h3>RS Pelita Anugerah</h3>
+                    </div>
                 </div>
+                <button class="btn-detail-rs" onclick="openDetailRS('RS Pelita Anugerah','0812-1234-5004','0812-9000-5004')">Detail</button>
             </div>
+            <!-- RS 5 -->
             <div class="rumahsakit-col">
-                <img src="images/rs_pku.jpg" alt="RS Hj. Fatimah Sulhan PKU Muhammadiyah">
-                <div class="layer">
-                    <h3>RS Hj. Fatimah Sulhan PKU Muhammadiyah</h3>
+                <div class="rs-img-wrap">
+                    <img src="images/rs_pku.jpg" alt="RS Hj. Fatimah Sulhan PKU Muhammadiyah">
+                    <div class="layer">
+                        <h3>RS Hj. Fatimah Sulhan PKU Muhammadiyah</h3>
+                    </div>
                 </div>
+                <button class="btn-detail-rs" onclick="openDetailRS('RS PKU Muhammadiyah','0812-1234-5005','0812-9000-5005')">Detail</button>
             </div>
+            <!-- RS 6 -->
             <div class="rumahsakit-col">
-                <img src="images/rs_charlie.jpg" alt="Charlie Hospital Demak">
-                <div class="layer">
-                    <h3>Charlie Hospital Demak</h3>
+                <div class="rs-img-wrap">
+                    <img src="images/rs_charlie.jpg" alt="Charlie Hospital Demak">
+                    <div class="layer">
+                        <h3>Charlie Hospital Demak</h3>
+                    </div>
                 </div>
+                <button class="btn-detail-rs" onclick="openDetailRS('Charlie Hospital Demak','0812-1234-5006','0812-9000-5006')">Detail</button>
             </div>
         </div>
     </section>
     <!-- ================= END RUMAH SAKIT SECTION ================= -->
+
+    <!-- ================= MODAL DETAIL RUMAH SAKIT ================= -->
+    <div id="modalDetailRS" class="modal-rs-overlay" onclick="closeModalRS(event)">
+        <div class="modal-rs-content">
+            <!-- Tombol Tutup -->
+            <button class="modal-rs-close" onclick="closeDetailRS()" title="Tutup">&times;</button>
+
+            <!-- Judul RS -->
+            <h2 class="modal-rs-title" id="modalRsName">Nama Rumah Sakit</h2>
+
+            <!-- Body: Slider + Info -->
+            <div class="modal-rs-body">
+
+                <!-- KIRI: Slider Poster Layanan -->
+                <div class="modal-slider-wrap">
+                    <div class="modal-slider">
+                        <div class="modal-slide active">
+                            <img src="images/layanan.jpg" alt="Poster Layanan">
+                        </div>
+                        <!-- Tambahkan slide baru di sini jika ada gambar lain -->
+                    </div>
+                    <!-- Nav Slider -->
+                    <button class="slider-btn slider-prev" onclick="slideChange(-1)" title="Sebelumnya">&#10094;</button>
+                    <button class="slider-btn slider-next" onclick="slideChange(1)" title="Berikutnya">&#10095;</button>
+                    <!-- Dots -->
+                    <div class="slider-dots" id="sliderDots">
+                        <span class="dot active" onclick="goToSlide(0)"></span>
+                    </div>
+                </div>
+
+                <!-- KANAN: Info Pendaftaran -->
+                <div class="modal-info-panel">
+                    <h3 class="info-panel-title">&#128222; Informasi Pendaftaran</h3>
+
+                    <div class="info-card rawat-jalan">
+                        <div class="info-card-icon"></div>
+                        <div class="info-card-body">
+                            <span class="info-label">Rawat Jalan</span>
+                            <a class="info-phone" id="modalPhoneRawat" href="#">-</a>
+                        </div>
+                    </div>
+
+                    <div class="info-card igd">
+                        <div class="info-card-icon"></div>
+                        <div class="info-card-body">
+                            <span class="info-label">IGD (24 Jam)</span>
+                            <a class="info-phone" id="modalPhoneIGD" href="#">-</a>
+                        </div>
+                    </div>
+
+                    <p class="info-note">&#9888;&#65039; Hubungi nomor di atas untuk pendaftaran atau keadaan darurat. Layanan tersedia sesuai jam operasional masing-masing unit.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ================= END MODAL DETAIL RUMAH SAKIT ================= -->
 
 <!-- ================= METODE PENGGUNAAN ================= -->
 <section class="metode">
@@ -269,15 +349,94 @@
 
     <!-- ================= JAVASCRIPT ================= -->
     <script>
+        /* --- Navigasi Mobile --- */
         var navLinks = document.getElementById("navLinks");
-        
-        function showMenu() {
-            navLinks.style.right = "0";
+        function showMenu() { navLinks.style.right = "0"; }
+        function hideMenu() { navLinks.style.right = "-250px"; }
+
+        /* ===== MODAL DETAIL RUMAH SAKIT ===== */
+        var currentSlide = 0;
+        var slides = [];
+        var dots = [];
+
+        function openDetailRS(namaRS, hpRawat, hpIGD) {
+            // Set nama RS
+            document.getElementById('modalRsName').textContent = namaRS;
+
+            // Set nomor HP dengan link wa atau tel
+            var rawatEl = document.getElementById('modalPhoneRawat');
+            var igdEl   = document.getElementById('modalPhoneIGD');
+
+            rawatEl.textContent = hpRawat;
+            rawatEl.href = 'tel:' + hpRawat.replace(/[-\s]/g, '');
+
+            igdEl.textContent = hpIGD;
+            igdEl.href = 'tel:' + hpIGD.replace(/[-\s]/g, '');
+
+            // Reset slider
+            currentSlide = 0;
+            slides = document.querySelectorAll('.modal-slide');
+            dots   = document.querySelectorAll('.dot');
+            updateSlider();
+
+            // Tampilkan modal
+            var modal = document.getElementById('modalDetailRS');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
-        
-        function hideMenu() {
-            navLinks.style.right = "-250px";
+
+        function closeDetailRS() {
+            document.getElementById('modalDetailRS').classList.remove('active');
+            document.body.style.overflow = '';
         }
+
+        function closeModalRS(e) {
+            if (e.target === document.getElementById('modalDetailRS')) {
+                closeDetailRS();
+            }
+        }
+
+        function slideChange(dir) {
+            slides = document.querySelectorAll('.modal-slide');
+            dots   = document.querySelectorAll('.dot');
+            currentSlide = (currentSlide + dir + slides.length) % slides.length;
+            updateSlider();
+        }
+
+        function goToSlide(idx) {
+            slides = document.querySelectorAll('.modal-slide');
+            dots   = document.querySelectorAll('.dot');
+            currentSlide = idx;
+            updateSlider();
+        }
+
+        function updateSlider() {
+            slides.forEach(function(s, i) {
+                s.classList.toggle('active', i === currentSlide);
+            });
+            dots.forEach(function(d, i) {
+                d.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        // Tutup modal dengan tombol Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeDetailRS();
+        });
+
+        // Touch/swipe untuk slider di mobile
+        (function() {
+            var startX = 0;
+            var sliderEl = document.querySelector('.modal-slider');
+            if (!sliderEl) return;
+            sliderEl.addEventListener('touchstart', function(e) {
+                startX = e.touches[0].clientX;
+            }, { passive: true });
+            sliderEl.addEventListener('touchend', function(e) {
+                var diff = startX - e.changedTouches[0].clientX;
+                if (Math.abs(diff) > 40) slideChange(diff > 0 ? 1 : -1);
+            }, { passive: true });
+        })();
     </script>
     <!-- ================= END JAVASCRIPT ================= -->
 </body>

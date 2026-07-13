@@ -86,7 +86,7 @@
                         <h3>RSUD Sunan Kalijaga</h3>
                     </div>
                 </div>
-                <button class="btn-detail-rs" onclick="openDetailRS('RSUD Sunan Kalijaga','0812-1234-5001','0812-9000-5001')">Detail</button>
+                <button class="btn-detail-rs" onclick="openDetailRS('RSUD Sunan Kalijaga','0812-1234-5001','0812-9000-5001', ['images/layanan_rsud_suka.jpg', 'images/layanan_rsud_suka_1.jpg'])">Detail</button>
             </div>
             <!-- RS 2 -->
             <div class="rumahsakit-col">
@@ -96,7 +96,7 @@
                         <h3>RSUD Sultan Fatah</h3>
                     </div>
                 </div>
-                <button class="btn-detail-rs" onclick="openDetailRS('RSUD Sultan Fatah','0812-1234-5002','0812-9000-5002')">Detail</button>
+                <button class="btn-detail-rs" onclick="openDetailRS('RSUD Sultan Fatah','0812-1234-5002','0812-9000-5002', ['images/layanan_rsud_sulfat.jpg', 'images/layanan_rsud_sulfat_1.jpg'])">Detail</button>
             </div>
             <!-- RS 3 -->
             <div class="rumahsakit-col">
@@ -106,7 +106,7 @@
                         <h3>RSI Nahdlatul Ulama Demak</h3>
                     </div>
                 </div>
-                <button class="btn-detail-rs" onclick="openDetailRS('RSI Nahdlatul Ulama Demak','0812-1234-5003','0812-9000-5003')">Detail</button>
+                <button class="btn-detail-rs" onclick="openDetailRS('RSI Nahdlatul Ulama Demak','0812-1234-5003','0812-9000-5003', ['images/layanan_rsi_nu.jpg', 'images/layanan_rsi_nu_1.jpg'])">Detail</button>
             </div>
             <!-- RS 4 -->
             <div class="rumahsakit-col">
@@ -116,7 +116,7 @@
                         <h3>RS Pelita Anugerah</h3>
                     </div>
                 </div>
-                <button class="btn-detail-rs" onclick="openDetailRS('RS Pelita Anugerah','0812-1234-5004','0812-9000-5004')">Detail</button>
+                <button class="btn-detail-rs" onclick="openDetailRS('RS Pelita Anugerah','0812-1234-5004','0812-9000-5004', ['images/layanan_rs_pelita.jpg', 'images/layanan_rs_pelita_1.jpg'])">Detail</button>
             </div>
             <!-- RS 5 -->
             <div class="rumahsakit-col">
@@ -126,7 +126,7 @@
                         <h3>RS Hj. Fatimah Sulhan PKU Muhammadiyah</h3>
                     </div>
                 </div>
-                <button class="btn-detail-rs" onclick="openDetailRS('RS PKU Muhammadiyah','0812-1234-5005','0812-9000-5005')">Detail</button>
+                <button class="btn-detail-rs" onclick="openDetailRS('RS PKU Muhammadiyah','0812-1234-5005','0812-9000-5005', ['images/layanan_rs_pku.jpeg', 'images/layanan_rs_pku_1.jpg'])">Detail</button>
             </div>
             <!-- RS 6 -->
             <div class="rumahsakit-col">
@@ -136,7 +136,7 @@
                         <h3>Charlie Hospital Demak</h3>
                     </div>
                 </div>
-                <button class="btn-detail-rs" onclick="openDetailRS('Charlie Hospital Demak','0812-1234-5006','0812-9000-5006')">Detail</button>
+                <button class="btn-detail-rs" onclick="openDetailRS('Charlie Hospital Demak','0812-1234-5006','0812-9000-5006', ['images/layanan_rs_charlie.jpg', 'images/layanan_rs_charlie_1.jpg'])">Detail</button>
             </div>
         </div>
     </section>
@@ -359,7 +359,7 @@
         var slides = [];
         var dots = [];
 
-        function openDetailRS(namaRS, hpRawat, hpIGD) {
+        function openDetailRS(namaRS, hpRawat, hpIGD, images) {
             // Set nama RS
             document.getElementById('modalRsName').textContent = namaRS;
 
@@ -373,7 +373,53 @@
             igdEl.textContent = hpIGD;
             igdEl.href = 'tel:' + hpIGD.replace(/[-\s]/g, '');
 
-            // Reset slider
+            // Mengisi slider gambar poster layanan secara dinamis
+            var sliderContainer = document.querySelector('.modal-slider');
+            var dotsContainer = document.getElementById('sliderDots');
+            
+            sliderContainer.innerHTML = '';
+            dotsContainer.innerHTML = '';
+
+            if (images && images.length > 0) {
+                images.forEach(function(imgSrc, index) {
+                    // Buat Slide
+                    var slideDiv = document.createElement('div');
+                    slideDiv.className = 'modal-slide' + (index === 0 ? ' active' : '');
+                    
+                    var img = document.createElement('img');
+                    img.src = imgSrc;
+                    img.alt = 'Poster Layanan ' + (index + 1);
+                    
+                    // Menangani fallback jika gambar belum di-upload/tidak ditemukan
+                    img.onerror = function() {
+                        this.src = 'images/layanan.jpg'; // fallback ke poster default
+                    };
+                    
+                    slideDiv.appendChild(img);
+                    sliderContainer.appendChild(slideDiv);
+
+                    // Buat Dot navigasi
+                    var dotSpan = document.createElement('span');
+                    dotSpan.className = 'dot' + (index === 0 ? ' active' : '');
+                    dotSpan.setAttribute('onclick', 'goToSlide(' + index + ')');
+                    dotsContainer.appendChild(dotSpan);
+                });
+
+                // Tampilkan/Sembunyikan navigasi jika gambar hanya 1
+                var prevBtn = document.querySelector('.slider-prev');
+                var nextBtn = document.querySelector('.slider-next');
+                if (images.length <= 1) {
+                    if (prevBtn) prevBtn.style.display = 'none';
+                    if (nextBtn) nextBtn.style.display = 'none';
+                    dotsContainer.style.display = 'none';
+                } else {
+                    if (prevBtn) prevBtn.style.display = 'flex';
+                    if (nextBtn) nextBtn.style.display = 'flex';
+                    dotsContainer.style.display = 'flex';
+                }
+            }
+
+            // Reset status slider
             currentSlide = 0;
             slides = document.querySelectorAll('.modal-slide');
             dots   = document.querySelectorAll('.dot');

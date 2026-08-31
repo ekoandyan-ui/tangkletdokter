@@ -23,6 +23,17 @@
   transition: all 0.3s ease;
   font-weight: 600;
   gap: 12px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.floating-btn.dragging {
+  cursor: grabbing;
+  animation: none !important;
+  opacity: 0.9;
+  box-shadow: 0 10px 30px rgba(0, 23, 37, 0.5);
+  transition: none;
 }
 
 .floating-btn:hover {

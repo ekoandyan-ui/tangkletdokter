@@ -192,6 +192,92 @@
             navLinks.style.right = "-250px";
         }
     </script>
+
+    <!-- ================= Floating Button Drag ================= -->
+    <script>
+    (function() {
+        var btn = document.querySelector('.floating-btn');
+        if (!btn) return;
+        var isDragging = false;
+        var hasMoved = false;
+        var startX, startY, startLeft, startTop;
+
+        function onStart(x, y) {
+            hasMoved = false;
+            startX = x;
+            startY = y;
+            var rect = btn.getBoundingClientRect();
+            startLeft = rect.left;
+            startTop = rect.top;
+            btn.style.transition = 'none';
+        }
+
+        function onMove(x, y) {
+            if (startX === null) return;
+            var dx = x - startX;
+            var dy = y - startY;
+            if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+                hasMoved = true;
+                isDragging = true;
+                btn.classList.add('dragging');
+                var newLeft = startLeft + dx;
+                var newTop = startTop + dy;
+                newLeft = Math.max(0, Math.min(window.innerWidth - btn.offsetWidth, newLeft));
+                newTop = Math.max(0, Math.min(window.innerHeight - btn.offsetHeight, newTop));
+                btn.style.left = newLeft + 'px';
+                btn.style.top = newTop + 'px';
+                btn.style.right = 'auto';
+                btn.style.bottom = 'auto';
+            }
+        }
+
+        function onEnd() {
+            if (hasMoved) {
+                isDragging = false;
+                btn.classList.remove('dragging');
+            }
+            startX = null;
+            startY = null;
+        }
+
+        function onMouseMove(e) { onMove(e.clientX, e.clientY); }
+        function onMouseUp() {
+            onEnd();
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+        function onTouchMove(e) {
+            e.preventDefault();
+            onMove(e.touches[0].clientX, e.touches[0].clientY);
+        }
+        function onTouchEnd() {
+            onEnd();
+            document.removeEventListener('touchmove', onTouchMove);
+            document.removeEventListener('touchend', onTouchEnd);
+        }
+
+        btn.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            onStart(e.clientX, e.clientY);
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+
+        btn.addEventListener('touchstart', function(e) {
+            onStart(e.touches[0].clientX, e.touches[0].clientY);
+            document.addEventListener('touchmove', onTouchMove, { passive: false });
+            document.addEventListener('touchend', onTouchEnd);
+        }, { passive: true });
+
+        btn.addEventListener('click', function(e) {
+            if (hasMoved) {
+                e.preventDefault();
+                e.stopPropagation();
+                hasMoved = false;
+            }
+        }, true);
+    })();
+    </script>
     <!-- ================= AKHIR JAVASCRIPT ================= -->
 </body>
 </html>

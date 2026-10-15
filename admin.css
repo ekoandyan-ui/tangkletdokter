@@ -1,0 +1,514 @@
+/* ============================================================
+   Dashboard Admin Rumah Sakit
+   ============================================================ */
+
+.page-admin {
+  background: #f4f7fa;
+  color: #2c3e50;
+  min-height: 100vh;
+}
+
+/* ---------- Header ---------- */
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 28px;
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  color: #fff;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.admin-brand img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.admin-brand h2 {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.admin-brand p {
+  font-size: 12px;
+  margin: 2px 0 0;
+  opacity: 0.85;
+}
+
+.admin-user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin-user span {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+/* ---------- Kartu & layout ---------- */
+.admin-auth,
+#adminDashboard {
+  max-width: 860px;
+  margin: 30px auto 60px;
+  padding: 0 20px;
+}
+
+.admin-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(44, 62, 80, 0.08);
+  margin-bottom: 22px;
+}
+
+.admin-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #2c3e50;
+}
+
+.admin-card h3 i {
+  color: #3498db;
+  margin-right: 8px;
+}
+
+.admin-muted {
+  font-size: 13px;
+  color: #718096;
+  margin: 0 0 18px;
+}
+
+.admin-auth-card {
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+/* ---------- Notifikasi ---------- */
+.admin-notice {
+  background: #fff8e6;
+  border: 1px solid #ffe7a8;
+  border-left: 5px solid #f39c12;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #8a6d3b;
+}
+
+.admin-notice i {
+  color: #f39c12;
+  margin-right: 8px;
+}
+
+.admin-msg {
+  min-height: 18px;
+  font-size: 13px;
+  margin: 10px 0 0;
+  color: #718096;
+}
+
+.admin-msg.ok {
+  color: #27ae60;
+}
+
+.admin-msg.error {
+  color: #e74c3c;
+}
+
+.admin-empty {
+  font-size: 14px;
+  color: #718096;
+  font-style: italic;
+  padding: 6px 0;
+  margin: 0;
+}
+
+/* ---------- Form ---------- */
+.admin-field {
+  margin-bottom: 14px;
+}
+
+.admin-field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 6px;
+}
+
+.admin-field input[type="text"],
+.admin-field input[type="password"],
+.admin-field textarea,
+.admin-field select,
+.admin-auth-card input,
+.admin-auth-card select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #2c3e50;
+  box-sizing: border-box;
+}
+
+.admin-field input:focus,
+.admin-field textarea:focus,
+.admin-field select:focus,
+.admin-auth-card input:focus,
+.admin-auth-card select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.18);
+}
+
+.admin-field input[type="file"] {
+  width: 100%;
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.admin-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.admin-field label,
+.admin-auth-card label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 6px;
+}
+
+.admin-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.admin-check.small {
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.admin-check input {
+  width: auto;
+}
+
+/* ---------- Tombol ---------- */
+.admin-btn {
+  padding: 11px 20px;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.admin-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2980b9 0%, #1f6396 100%);
+}
+
+.admin-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-btn-danger {
+  padding: 9px 16px;
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-btn-danger:hover {
+  background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+}
+
+.admin-btn-ghost {
+  padding: 11px 18px;
+  background: #eef2f6;
+  color: #4a5568;
+  border: none;
+  border-radius: 6px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-btn-ghost:hover {
+  background: #dfe6ec;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Tab ---------- */
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  background: #e6ecf1;
+  padding: 6px;
+  border-radius: 10px;
+}
+
+.admin-tab {
+  flex: 1;
+  min-width: 120px;
+  padding: 11px 14px;
+  background: transparent;
+  border: none;
+  border-radius: 7px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-tab:hover {
+  color: #2c3e50;
+}
+
+.admin-tab.active {
+  background: #fff;
+  color: #2980b9;
+  box-shadow: 0 1px 4px rgba(44, 62, 80, 0.15);
+}
+
+/* ---------- Baris (layanan / poster) ---------- */
+.admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border: 1px solid #e6ecf1;
+  border-radius: 8px;
+}
+
+.admin-row-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-row-main strong {
+  font-size: 15px;
+  color: #2c3e50;
+}
+
+.admin-row-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px;
+  color: #718096;
+  margin-top: 4px;
+}
+
+.admin-row-meta i {
+  color: #3498db;
+  margin-right: 4px;
+}
+
+.admin-row-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.mini-btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef2f6;
+  color: #4a5568;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mini-btn:hover:not(:disabled) {
+  background: #3498db;
+  color: #fff;
+}
+
+.mini-btn.danger:hover:not(:disabled) {
+  background: #e74c3c;
+}
+
+.mini-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.badge.ok {
+  background: #e4f6ec;
+  color: #27ae60;
+}
+
+.badge.off {
+  background: #fdecea;
+  color: #e74c3c;
+}
+
+/* ---------- Poster ---------- */
+.poster-preview {
+  margin: 12px 0;
+}
+
+.poster-preview img {
+  max-width: 220px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #e6ecf1;
+  display: block;
+}
+
+.poster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.poster-card {
+  display: block;
+  padding: 12px;
+  background: #f8fafc;
+  border: 1px solid #e6ecf1;
+  border-radius: 10px;
+}
+
+.poster-thumb {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #fff;
+  display: block;
+  border: 1px solid #e6ecf1;
+}
+
+.poster-body {
+  margin-top: 10px;
+}
+
+.poster-title-input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  color: #2c3e50;
+  box-sizing: border-box;
+}
+
+.poster-title-input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.poster-meta {
+  margin-top: 8px;
+}
+
+.poster-card .admin-row-actions {
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+/* ---------- Catatan ---------- */
+.admin-note {
+  font-size: 12px;
+  color: #718096;
+  margin: 12px 0 0;
+  line-height: 1.5;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 18px;
+  }
+
+  .admin-user {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .admin-field-row {
+    grid-template-columns: 1fr;
+  }
+
+  #adminDashboard,
+  .admin-auth {
+    margin: 20px auto 40px;
+    padding: 0 14px;
+  }
+
+  .admin-card {
+    padding: 18px;
+  }
+}

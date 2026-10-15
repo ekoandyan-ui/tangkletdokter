@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin Rumah Sakit - Tangklet Dokter</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="page-admin">
+    <!-- ================= HEADER ADMIN ================= -->
+    <section class="admin-header">
+        <div class="admin-brand">
+            <a href="index.html"><img src="images/logo_dinkes.png" alt="Logo Dinkes Demak"></a>
+            <div>
+                <h2>Panel Admin Rumah Sakit</h2>
+                <p>Tangklet Dokter &mdash; Dinas Kesehatan Kabupaten Demak</p>
+            </div>
+        </div>
+        <div class="admin-user" id="adminUserBox" hidden>
+            <span id="adminHospitalName"></span>
+            <button type="button" id="btnLogout" class="admin-btn-danger"><i class="fas fa-sign-out-alt"></i> Keluar</button>
+        </div>
+    </section>
+
+    <!-- ================= VIEW LOGIN ================= -->
+    <section id="adminLoginView" class="admin-auth" hidden>
+        <form id="dashboardLoginForm" class="admin-card admin-auth-card" novalidate>
+            <h3><i class="fas fa-user-shield"></i> Login Admin Rumah Sakit</h3>
+            <p class="admin-muted">Masuk untuk mengelola layanan &amp; poster rumah sakit Anda.</p>
+
+            <label for="dashHospital">Rumah Sakit</label>
+            <select id="dashHospital" required>
+                <option value="">— Pilih rumah sakit —</option>
+            </select>
+
+            <label for="dashUsername">Nama Pengguna / Email</label>
+            <input type="text" id="dashUsername" autocomplete="username" required>
+
+            <label for="dashPassword">Kata Sandi</label>
+            <input type="password" id="dashPassword" autocomplete="current-password" required>
+
+            <p id="dashLoginMsg" class="admin-msg" role="alert" aria-live="assertive"></p>
+
+            <button type="submit" id="dashLoginSubmit" class="admin-btn">Masuk</button>
+            <p class="admin-note">Lupa kata sandi? Hubungi pengelola Dinas Kesehatan untuk mereset akun.</p>
+        </form>
+    </section>
+
+    <!-- ================= VIEW DASHBOARD ================= -->
+    <main id="adminDashboard" hidden>
+        <!-- Notifikasi wajib ganti kata sandi -->
+        <div id="mustChangeNotice" class="admin-notice" hidden>
+            <i class="fas fa-key"></i>
+            Anda masuk dengan kata sandi awal. Silakan ganti kata sandi pada tab <strong>Akun</strong>.
+        </div>
+
+        <div class="admin-tabs" role="tablist">
+            <button class="admin-tab active" data-tab="profil" role="tab">Profil RS</button>
+            <button class="admin-tab" data-tab="layanan" role="tab">Layanan</button>
+            <button class="admin-tab" data-tab="poster" role="tab">Poster</button>
+            <button class="admin-tab" data-tab="akun" role="tab">Akun</button>
+        </div>
+
+        <!-- TAB: PROFIL -->
+        <section id="tab-profil" class="admin-tab-panel" role="tabpanel">
+            <form id="hospitalForm" class="admin-card" novalidate>
+                <h3><i class="fas fa-hospital"></i> Informasi Kontak Rumah Sakit</h3>
+                <p class="admin-muted">Perubahan langsung tampil pada halaman publik.</p>
+
+                <div class="admin-field">
+                    <label for="hPhoneRawat">Telepon Rawat Jalan</label>
+                    <input type="text" id="hPhoneRawat" placeholder="0812-xxxx-xxxx">
+                </div>
+                <div class="admin-field">
+                    <label for="hPhoneIgd">Telepon IGD (24 Jam)</label>
+                    <input type="text" id="hPhoneIgd" placeholder="0812-xxxx-xxxx">
+                </div>
+                <div class="admin-field">
+                    <label for="hAddress">Alamat</label>
+                    <textarea id="hAddress" rows="3"></textarea>
+                </div>
+                <p id="hospitalMsg" class="admin-msg" role="alert"></p>
+                <button type="submit" class="admin-btn">Simpan Profil</button>
+            </form>
+        </section>
+
+        <!-- TAB: LAYANAN -->
+        <section id="tab-layanan" class="admin-tab-panel" role="tabpanel" hidden>
+            <form id="serviceForm" class="admin-card" novalidate>
+                <h3 id="serviceFormTitle"><i class="fas fa-notes-medical"></i> Tambah Layanan</h3>
+                <input type="hidden" id="serviceId">
+                <div class="admin-field">
+                    <label for="serviceName">Nama Layanan</label>
+                    <input type="text" id="serviceName" required placeholder="cth. Poli Anak">
+                </div>
+                <div class="admin-field">
+                    <label for="serviceDesc">Keterangan</label>
+                    <textarea id="serviceDesc" rows="2"></textarea>
+                </div>
+                <div class="admin-field-row">
+                    <div class="admin-field">
+                        <label for="serviceSchedule">Jadwal</label>
+                        <input type="text" id="serviceSchedule" placeholder="Senin–Jumat 08.00–15.00">
+                    </div>
+                    <div class="admin-field">
+                        <label for="serviceContact">Kontak</label>
+                        <input type="text" id="serviceContact" placeholder="0812-xxxx-xxxx">
+                    </div>
+                </div>
+                <div class="admin-field admin-check">
+                    <label><input type="checkbox" id="servicePublished" checked> Tampilkan ke publik</label>
+                </div>
+                <p id="serviceMsg" class="admin-msg" role="alert"></p>
+                <div class="admin-actions">
+                    <button type="submit" class="admin-btn" id="serviceSubmit">Simpan Layanan</button>
+                    <button type="button" class="admin-btn-ghost" id="serviceCancel" hidden>Batal</button>
+                </div>
+            </form>
+
+            <div class="admin-card">
+                <h3><i class="fas fa-list"></i> Daftar Layanan</h3>
+                <div id="serviceList" class="admin-list"></div>
+            </div>
+        </section>
+
+        <!-- TAB: POSTER -->
+        <section id="tab-poster" class="admin-tab-panel" role="tabpanel" hidden>
+            <form id="posterUploadForm" class="admin-card" enctype="multipart/form-data" novalidate>
+                <h3><i class="fas fa-image"></i> Unggah Poster</h3>
+                <div class="admin-field">
+                    <label for="posterFile">Berkas Gambar (PNG/JPG/WEBP/GIF)</label>
+                    <input type="file" id="posterFile" accept="image/png,image/jpeg,image/webp,image/gif" required>
+                </div>
+                <div id="posterPreview" class="poster-preview" hidden>
+                    <img id="posterPreviewImg" alt="Pratinjau poster">
+                </div>
+                <div class="admin-field">
+                    <label for="posterTitle">Judul / Teks Alternatif</label>
+                    <input type="text" id="posterTitle" placeholder="cth. Poster Poli Anak">
+                </div>
+                <div class="admin-field">
+                    <label for="posterService">Kaitkan dengan Layanan (opsional)</label>
+                    <select id="posterService"><option value="">— Tanpa layanan —</option></select>
+                </div>
+                <p id="posterMsg" class="admin-msg" role="alert"></p>
+                <button type="submit" class="admin-btn" id="posterSubmit">Unggah Poster</button>
+            </form>
+
+            <div class="admin-card">
+                <h3><i class="fas fa-images"></i> Poster Terbit</h3>
+                <p class="admin-muted">Urutan menentukan urutan tampil di halaman publik.</p>
+                <div id="posterList" class="poster-grid"></div>
+            </div>
+        </section>
+
+        <!-- TAB: AKUN -->
+        <section id="tab-akun" class="admin-tab-panel" role="tabpanel" hidden>
+            <form id="changePasswordForm" class="admin-card" novalidate>
+                <h3><i class="fas fa-key"></i> Ganti Kata Sandi</h3>
+                <div class="admin-field">
+                    <label for="curPassword">Kata Sandi Saat Ini</label>
+                    <input type="password" id="curPassword" autocomplete="current-password" required>
+                </div>
+                <div class="admin-field">
+                    <label for="newPassword">Kata Sandi Baru</label>
+                    <input type="password" id="newPassword" autocomplete="new-password" required>
+                </div>
+                <div class="admin-field">
+                    <label for="confirmPassword">Ulangi Kata Sandi Baru</label>
+                    <input type="password" id="confirmPassword" autocomplete="new-password" required>
+                </div>
+                <p id="pwMsg" class="admin-msg" role="alert"></p>
+                <button type="submit" class="admin-btn">Simpan Kata Sandi</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="js/api-config.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

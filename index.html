@@ -77,68 +77,11 @@
         <h1>Rumah Sakit di Kabupaten Demak</h1>
         <p>Konsultasikan masalah kesehatan Anda dengan Dokter yang handal dan terpercaya. Dapatkan layanan medis secara cepat, tepat dan mudah.</p>
 
-        <div class="row">
-            <!-- RS 1 -->
-            <div class="rumahsakit-col">
-                <div class="rs-img-wrap">
-                    <img src="images/rsud_suka.jpg" alt="RSUD Sunan Kalijaga">
-                    <div class="layer">
-                        <h3>RSUD Sunan Kalijaga</h3>
-                    </div>
-                </div>
-                <button class="btn-detail-rs" onclick="openDetailRS('RSUD Sunan Kalijaga','0812-1234-5001','0812-9000-5001', ['images/layanan_rsud_suka.jpg', 'images/layanan_rsud_suka_1.jpg'])">Detail</button>
-            </div>
-            <!-- RS 2 -->
-            <div class="rumahsakit-col">
-                <div class="rs-img-wrap">
-                    <img src="images/rsud_sulfat.jpeg" alt="RSUD Sultan Fatah">
-                    <div class="layer">
-                        <h3>RSUD Sultan Fatah</h3>
-                    </div>
-                </div>
-                <button class="btn-detail-rs" onclick="openDetailRS('RSUD Sultan Fatah','0812-1234-5002','0812-9000-5002', ['images/layanan_rsud_sulfat.jpg', 'images/layanan_rsud_sulfat_1.jpg'])">Detail</button>
-            </div>
-            <!-- RS 3 -->
-            <div class="rumahsakit-col">
-                <div class="rs-img-wrap">
-                    <img src="images/rsi_nu.jpeg" alt="RSI Nahdlatul Ulama Demak">
-                    <div class="layer">
-                        <h3>RSI Nahdlatul Ulama Demak</h3>
-                    </div>
-                </div>
-                <button class="btn-detail-rs" onclick="openDetailRS('RSI Nahdlatul Ulama Demak','0812-1234-5003','0812-9000-5003', ['images/layanan_rsi_nu.jpg', 'images/layanan_rsi_nu_1.jpg'])">Detail</button>
-            </div>
-            <!-- RS 4 -->
-            <div class="rumahsakit-col">
-                <div class="rs-img-wrap">
-                    <img src="images/rs_pelita.jpg" alt="RS Pelita Anugerah">
-                    <div class="layer">
-                        <h3>RS Pelita Anugerah</h3>
-                    </div>
-                </div>
-                <button class="btn-detail-rs" onclick="openDetailRS('RS Pelita Anugerah','0812-1234-5004','0812-9000-5004', ['images/layanan_rs_pelita.jpg', 'images/layanan_rs_pelita_1.jpg'])">Detail</button>
-            </div>
-            <!-- RS 5 -->
-            <div class="rumahsakit-col">
-                <div class="rs-img-wrap">
-                    <img src="images/rs_pku.jpg" alt="RS Hj. Fatimah Sulhan PKU Muhammadiyah">
-                    <div class="layer">
-                        <h3>RS Hj. Fatimah Sulhan PKU Muhammadiyah</h3>
-                    </div>
-                </div>
-                <button class="btn-detail-rs" onclick="openDetailRS('RS PKU Muhammadiyah','0812-1234-5005','0812-9000-5005', ['images/layanan_rs_pku.jpeg', 'images/layanan_rs_pku_1.jpg'])">Detail</button>
-            </div>
-            <!-- RS 6 -->
-            <div class="rumahsakit-col">
-                <div class="rs-img-wrap">
-                    <img src="images/rs_charlie.jpg" alt="Charlie Hospital Demak">
-                    <div class="layer">
-                        <h3>Charlie Hospital Demak</h3>
-                    </div>
-                </div>
-                <button class="btn-detail-rs" onclick="openDetailRS('Charlie Hospital Demak','0812-1234-5006','0812-9000-5006', ['images/layanan_rs_charlie.jpg', 'images/layanan_rs_charlie_1.jpg'])">Detail</button>
-            </div>
+        <div class="row" id="rsRow">
+            <!-- Kartu rumah sakit diisi dari API oleh js/index-rs.js.
+                 Bila API gagal dijangkau, data cadangan ditampilkan + pesan kesalahan. -->
         </div>
+        <p id="rsError" class="rs-error" style="display:none"></p>
     </section>
     <!-- ================= END RUMAH SAKIT SECTION ================= -->
 
@@ -193,6 +136,11 @@
 
                     <p class="info-note">&#9888;&#65039; Hubungi nomor di atas untuk pendaftaran atau keadaan darurat. Layanan tersedia sesuai jam operasional masing-masing unit.</p>
                 </div>
+            </div>
+
+            <!-- Layanan (diisi dari API) -->
+            <div class="modal-services-wrap" id="modalServices">
+                <p class="modal-empty">Memuat layanan…</p>
             </div>
         </div>
     </div>
@@ -359,77 +307,8 @@
         var slides = [];
         var dots = [];
 
-        function openDetailRS(namaRS, hpRawat, hpIGD, images) {
-            // Set nama RS
-            document.getElementById('modalRsName').textContent = namaRS;
-
-            // Set nomor HP dengan link wa atau tel
-            var rawatEl = document.getElementById('modalPhoneRawat');
-            var igdEl   = document.getElementById('modalPhoneIGD');
-
-            rawatEl.textContent = hpRawat;
-            rawatEl.href = 'tel:' + hpRawat.replace(/[-\s]/g, '');
-
-            igdEl.textContent = hpIGD;
-            igdEl.href = 'tel:' + hpIGD.replace(/[-\s]/g, '');
-
-            // Mengisi slider gambar poster layanan secara dinamis
-            var sliderContainer = document.querySelector('.modal-slider');
-            var dotsContainer = document.getElementById('sliderDots');
-            
-            sliderContainer.innerHTML = '';
-            dotsContainer.innerHTML = '';
-
-            if (images && images.length > 0) {
-                images.forEach(function(imgSrc, index) {
-                    // Buat Slide
-                    var slideDiv = document.createElement('div');
-                    slideDiv.className = 'modal-slide' + (index === 0 ? ' active' : '');
-                    
-                    var img = document.createElement('img');
-                    img.src = imgSrc;
-                    img.alt = 'Poster Layanan ' + (index + 1);
-                    
-                    // Menangani fallback jika gambar belum di-upload/tidak ditemukan
-                    img.onerror = function() {
-                        this.src = 'images/layanan.jpg'; // fallback ke poster default
-                    };
-                    
-                    slideDiv.appendChild(img);
-                    sliderContainer.appendChild(slideDiv);
-
-                    // Buat Dot navigasi
-                    var dotSpan = document.createElement('span');
-                    dotSpan.className = 'dot' + (index === 0 ? ' active' : '');
-                    dotSpan.setAttribute('onclick', 'goToSlide(' + index + ')');
-                    dotsContainer.appendChild(dotSpan);
-                });
-
-                // Tampilkan/Sembunyikan navigasi jika gambar hanya 1
-                var prevBtn = document.querySelector('.slider-prev');
-                var nextBtn = document.querySelector('.slider-next');
-                if (images.length <= 1) {
-                    if (prevBtn) prevBtn.style.display = 'none';
-                    if (nextBtn) nextBtn.style.display = 'none';
-                    dotsContainer.style.display = 'none';
-                } else {
-                    if (prevBtn) prevBtn.style.display = 'flex';
-                    if (nextBtn) nextBtn.style.display = 'flex';
-                    dotsContainer.style.display = 'flex';
-                }
-            }
-
-            // Reset status slider
-            currentSlide = 0;
-            slides = document.querySelectorAll('.modal-slide');
-            dots   = document.querySelectorAll('.dot');
-            updateSlider();
-
-            // Tampilkan modal
-            var modal = document.getElementById('modalDetailRS');
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+        // Catatan: openDetailRS(id) kini diimplementasikan di js/index-rs.js
+        // dan mengambil data layanan/poster dari API, bukan nilai tetap.
 
         function closeDetailRS() {
             document.getElementById('modalDetailRS').classList.remove('active');
@@ -570,6 +449,13 @@
         }, true);
     })();
     </script>
+
+    <!-- ================= Admin Login (Footer + Flyover) ================= -->
+    <script src="js/api-config.js"></script>
+    <script src="js/index-rs.js"></script>
+    <script src="js/admin-login.js"></script>
+    <!-- ================= END Admin Login ================= -->
+
     <!-- ================= END JAVASCRIPT ================= -->
 </body>
 </html>

@@ -20,6 +20,10 @@
       '<button type="button" id="btnLoginAdminRS" class="footer-admin-btn">' +
       '<i class="fas fa-user-shield"></i> Login Admin Rumah Sakit</button>' +
 
+      '<a id="btnAdminLiveChat" class="footer-admin-btn footer-admin-btn--livechat"' +
+      ' href="https://livechat.demakkab.go.id/admin" target="_blank" rel="noopener noreferrer">' +
+      '<i class="fas fa-headset"></i> Admin Live Chat</a>' +
+
       '<div id="adminLoginOverlay" class="admin-flyover-overlay" aria-hidden="true">' +
       '  <div id="adminLoginPanel" class="admin-flyover-panel" role="dialog" aria-modal="true" aria-labelledby="adminFlyoverTitle" tabindex="-1">' +
       '    <div class="admin-flyover-header">' +
@@ -45,12 +49,16 @@
     // Sisipkan tombol ke footer sebelum blok copyright.
     var copyright = document.querySelector(".footer .copyright");
     var btn = wrap.querySelector("#btnLoginAdminRS");
+    var liveChatBtn = wrap.querySelector("#btnAdminLiveChat");
     if (copyright && copyright.parentNode) {
       copyright.parentNode.insertBefore(btn, copyright);
+      copyright.parentNode.insertBefore(liveChatBtn, copyright);
     } else if (document.querySelector(".footer")) {
       document.querySelector(".footer").appendChild(btn);
+      document.querySelector(".footer").appendChild(liveChatBtn);
     } else {
       document.body.appendChild(btn);
+      document.body.appendChild(liveChatBtn);
     }
 
     // Panel flyover ditempel di akhir body.

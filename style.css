@@ -1984,6 +1984,22 @@ body.page-chat .text-box p {
   background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
 }
 
+/* Tombol live chat admin (tautan eksternal) */
+a.footer-admin-btn {
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.footer-admin-btn--livechat {
+  background: linear-gradient(135deg, #16a085 0%, #0f7a63 100%);
+}
+
+.footer-admin-btn--livechat:hover {
+  background: linear-gradient(135deg, #0f7a63 0%, #0b5e4c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
 /* ---- Panel flyover login ---- */
 .admin-flyover-overlay {
   position: fixed;

@@ -781,24 +781,8 @@ h3 {
   }
 }
 
-/* Responsif tombol detail untuk mobile */
-@media (max-width: 768px) {
-  .rumahsakit-col {
-    flex-basis: 40%;
-  }
-
-  .btn-detail-rs {
-    font-size: 12px;
-    padding: 4px 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .rumahsakit-col {
-    flex-basis: 80%;
-    max-width: 280px;
-  }
-}
+/* Responsif kartu rumah sakit dipusatkan pada blok
+   "RUMAH SAKIT SECTION - TABLET/MOBILE" di bagian bawah stylesheet. */
 
 /* ==================== METODE SECTION ==================== */
 .metode {
@@ -1618,12 +1602,12 @@ body.page-chat .text-box p {
   nav .fa-bars {
     display: block;
     color: rgba(44, 62, 80, 0.8);
-    margin: 15px;
+    margin: 0;
     font-size: 24px;
     cursor: pointer;
     position: fixed;
-    top: 5px;
-    right: 15px;
+    top: 18px;
+    right: 18px;
     z-index: 999;
     padding: 12px 14px;
   }
@@ -1649,20 +1633,20 @@ body.page-chat .text-box p {
     list-style: none;
   }
 
-  /* Overlay untuk mobile menu */
-  .overlay {
-    display: none;
+  /* Overlay gelap di belakang sidebar saat menu mobile terbuka.
+     z-index < nav (1000) agar tombol hamburger & sidebar tetap di atas overlay. */
+  body.menu-open::before {
+    content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 999;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 998;
+    animation: menuOverlayIn 0.3s ease;
   }
 
-  .overlay.active {
-    display: block;
+  @keyframes menuOverlayIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 }
 
@@ -1745,21 +1729,23 @@ body.page-chat .text-box p {
 /* ==================== RUMAH SAKIT SECTION - TABLET/MOBILE ==================== */
 @media (max-width: 768px) {
   .rumahsakit {
-    width: 90%;
-    padding-top: 20px;
+    width: 100%;
+    padding: 24px 16px 0;
     margin: auto;
     text-align: center;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .rumahsakit .row {
-    display: flex;
-    flex-wrap: wrap;
-    row-gap: 15px;
-    column-gap: 8px;
-    margin: 0;
-    padding: 0 5px;
-    /* Pastikan row tidak punya constraint tinggi */
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px 12px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0;
+    align-items: stretch;
   }
 
   .rumahsakit h1 {
@@ -1777,15 +1763,17 @@ body.page-chat .text-box p {
   }
 
   .rumahsakit-col {
-    flex: 0 0 calc(30% - 4px) !important;
-    width: calc(30% - 4px) !important;
-    max-width: calc(30% - 4px) !important;
-    border-radius: 6px;
-    aspect-ratio: 1.6;
-    /* 0.75 */
-    /* HAPUS: min-height: 100%; */
+    flex: none !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0;
     margin: 0 !important;
-    /* Tambah ini untuk debugging */
+    aspect-ratio: auto;
+    border-radius: 10px;
+  }
+
+  .rs-img-wrap {
+    aspect-ratio: 4 / 3;
   }
 
   .rumahsakit-col img {
@@ -1793,7 +1781,6 @@ body.page-chat .text-box p {
     height: 100%;
     object-fit: cover;
     display: block;
-    /* Hilangkan spacing bawah */
   }
 
   .layer {
@@ -1806,14 +1793,10 @@ body.page-chat .text-box p {
     transition: 0.3s;
   }
 
-  .layer:hover {
-    background: rgba(18, 20, 41, 0.7);
-  }
-
   .layer h3 {
-    font-size: 9px !important;
-    padding: 6px 4px !important;
-    line-height: 1.2;
+    font-size: 12px !important;
+    padding: 6px 6px !important;
+    line-height: 1.25;
   }
 
   .layer:hover h3 {
@@ -1823,8 +1806,14 @@ body.page-chat .text-box p {
     color: #f1f1f1;
     background-color: transparent;
     padding: 0;
-    font-size: 11px;
+    font-size: 13px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .btn-detail-rs {
+    font-size: 13px;
+    padding: 8px 0;
+    margin-top: 8px;
   }
 
   .metode-col h1 {
@@ -1854,6 +1843,32 @@ body.page-chat .text-box p {
 
   .copyright p {
     line-height: 1.5;
+  }
+}
+
+/* ==================== RUMAH SAKIT SECTION - PONSEL ==================== */
+@media (max-width: 600px) {
+  .rumahsakit {
+    padding: 24px 12px 0;
+  }
+
+  .rumahsakit .row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 10px;
+  }
+
+  .rs-img-wrap {
+    aspect-ratio: 4 / 3;
+  }
+
+  .layer h3 {
+    font-size: 13px !important;
+    padding: 7px 8px !important;
+  }
+
+  .btn-detail-rs {
+    font-size: 14px;
+    padding: 9px 0;
   }
 }
 
@@ -1948,56 +1963,50 @@ body.page-chat .text-box p {
   font-style: normal;
 }
 
-/* ---- Tombol login admin di footer ---- */
-.footer-admin-btn {
-  display: block;
-  width: 100%;
-  margin: 0 auto 30px;
-  padding: 13px 18px;
-  background: linear-gradient(135deg, #2980b9 0%, #1f6396 100%);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-family: "Poppins", sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+/* ---- Tautan admin kecil di "Menu Cepat" footer ---- */
+.quick-links .quick-links-admin {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.quick-links .quick-link-action {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 90%;
-}
-
-.footer-admin-btn i {
-  font-size: 17px;
-}
-
-.footer-admin-btn:hover {
-  background: linear-gradient(135deg, #1f6396 0%, #165078 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-}
-
-.footer-admin-btn.is-logged-in {
-  background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
-}
-
-/* Tombol live chat admin (tautan eksternal) */
-a.footer-admin-btn {
+  gap: 7px;
+  padding: 6px 0;
+  background: none;
+  border: none;
+  color: #cbd5e0;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
   text-decoration: none;
-  box-sizing: border-box;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-.footer-admin-btn--livechat {
-  background: linear-gradient(135deg, #16a085 0%, #0f7a63 100%);
+.quick-links .quick-link-action i {
+  font-size: 13px;
+  opacity: 0.9;
 }
 
-.footer-admin-btn--livechat:hover {
-  background: linear-gradient(135deg, #0f7a63 0%, #0b5e4c 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+.quick-links .quick-link-action:hover {
+  color: #3498db;
+}
+
+.quick-links .quick-link-action.is-logged-in {
+  color: #2ecc71;
+}
+
+/* Jangan tampilkan panah bawaan menu cepat pada tautan admin. */
+.quick-links a.quick-link-action::before {
+  content: none;
 }
 
 /* ---- Panel flyover login ---- */

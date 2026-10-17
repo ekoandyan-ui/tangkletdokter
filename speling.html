@@ -183,12 +183,28 @@
         var navLinks = document.getElementById("navLinks");
         
         function showMenu() {
+            if (document.body.classList.contains("menu-open")) { hideMenu(); return; }
             navLinks.style.right = "0";
+            document.body.classList.add("menu-open");
         }
         
         function hideMenu() {
             navLinks.style.right = "-250px";
+            document.body.classList.remove("menu-open");
         }
+
+        // Klik di luar sidebar menutup menu (tidak hanya tombol silang).
+        document.addEventListener("click", function (e) {
+            if (!document.body.classList.contains("menu-open")) return;
+            var t = e.target;
+            if (t.closest && (t.closest("#navLinks") || t.closest(".fa-bars"))) return;
+            hideMenu();
+        });
+
+        // Tombol Escape juga menutup menu.
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") hideMenu();
+        });
     </script>
 
     <!-- ================= Floating Button Drag ================= -->

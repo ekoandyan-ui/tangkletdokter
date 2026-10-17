@@ -17,13 +17,6 @@
     var wrap = document.createElement("div");
 
     wrap.innerHTML =
-      '<button type="button" id="btnLoginAdminRS" class="footer-admin-btn">' +
-      '<i class="fas fa-user-shield"></i> Login Admin Rumah Sakit</button>' +
-
-      '<a id="btnAdminLiveChat" class="footer-admin-btn footer-admin-btn--livechat"' +
-      ' href="https://livechat.demakkab.go.id/admin" target="_blank" rel="noopener noreferrer">' +
-      '<i class="fas fa-headset"></i> Admin Live Chat</a>' +
-
       '<div id="adminLoginOverlay" class="admin-flyover-overlay" aria-hidden="true">' +
       '  <div id="adminLoginPanel" class="admin-flyover-panel" role="dialog" aria-modal="true" aria-labelledby="adminFlyoverTitle" tabindex="-1">' +
       '    <div class="admin-flyover-header">' +
@@ -46,19 +39,25 @@
       "  </div>" +
       "</div>";
 
-    // Sisipkan tombol ke footer sebelum blok copyright.
-    var copyright = document.querySelector(".footer .copyright");
-    var btn = wrap.querySelector("#btnLoginAdminRS");
-    var liveChatBtn = wrap.querySelector("#btnAdminLiveChat");
-    if (copyright && copyright.parentNode) {
-      copyright.parentNode.insertBefore(btn, copyright);
-      copyright.parentNode.insertBefore(liveChatBtn, copyright);
-    } else if (document.querySelector(".footer")) {
-      document.querySelector(".footer").appendChild(btn);
-      document.querySelector(".footer").appendChild(liveChatBtn);
+    // Tombol kecil minimalis di bagian "Menu Cepat" footer.
+    var footer = document.querySelector(".footer");
+    var list = footer ? footer.querySelector(".quick-links") : null;
+
+    var adminLi = document.createElement("li");
+    adminLi.className = "quick-links-admin";
+    adminLi.innerHTML =
+      '<button type="button" id="btnLoginAdminRS" class="quick-link-action">' +
+      '<i class="fas fa-user-shield"></i> Login Admin RS</button>' +
+      '<a id="btnAdminLiveChat" class="quick-link-action"' +
+      ' href="https://livechat.demakkab.go.id/admin" target="_blank" rel="noopener noreferrer">' +
+      '<i class="fas fa-headset"></i> Admin Live Chat</a>';
+
+    if (list) {
+      list.appendChild(adminLi);
+    } else if (footer) {
+      footer.appendChild(adminLi);
     } else {
-      document.body.appendChild(btn);
-      document.body.appendChild(liveChatBtn);
+      document.body.appendChild(adminLi);
     }
 
     // Panel flyover ditempel di akhir body.
